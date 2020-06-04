@@ -3,9 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English for kids</title>
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/ico">
+    <title>Fancy-weather</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/ico">  
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
+    <div class="site">
+        <div class="spinner">
+            <div class="spinner-wave">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div class="header">
+            <div class="container">
+                <div class="header__wrapper">
+                    <div class="header__toggles">
+                        <div class="header__toggles_update">
+                            <div class="repeat"></div>
+                        </div>
+                        <div class="header__toggles_lang">
+                            <div class="main-lang">
+                                <span id="lang"></span>
+                                <span class="arrow"></span>
+                            </div>
+                                <span class="language lang-ru">ru</span>
+                                <span class="language lang-en">en</span>
+                                <span class="language lang-by">be</span>
+                        </div>
+                        <div class="header__measuring-scale">
+                            <div class="scale measuring-scale_fahr">°F</div>
+                            <div class="scale measuring-scale_celsius">°C</div>
+                        </div>
+                         <div class="header__megaphone"></div>
+                        </div>
+                    <div class="form-wrapper">
+                    <form class="header__search-field">
+                        <input type="search" class="search-field" placeholder="Search city...">
+                        <span class="microphone"></span>
+                        <button class="search-button">Search</button>
+                    </form>
+                    <div class="error-field"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <main class="main">
+            <div class="container">
+                <div class="main__wrapper">
+                    <div class="forecast"></div>
+                    <div class="main__map">
+                            <svg class="clip-svg">
+                                <defs>
+                                 <clipPath id="my-clip-path" clipPathUnits="objectBoundingBox">
+                                 <path width="100%" height="100%" transform="scale(0.0045, 0.00385)" id="clip-mask" d="M34.1983772,243.81581 C35.2123618,243.81581 36.0373744,244.643759 36.0373744,245.661353 L36.0373744,260 L63.450348,244.064408 C63.7301493,243.901754 64.0488773,243.81581 64.3720879,243.81581 L233,243.81581 L233,2 L2,2 L2,243.81581 L34.1983772,243.81581 Z" />
+                                 </clipPath>
+                                </defs>
+                               </svg> 
+                        <div id="map"></div>             
+                        <div class="location-wrapper"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="marquee"><span id="string"></span></div>
+        </main>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 </body>
 </html>

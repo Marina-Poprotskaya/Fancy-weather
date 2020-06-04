@@ -13,6 +13,7 @@
         "sourceType": "module"
     },
     "rules": {
-        "allowForLoopAfterthoughts": true
+        "indent": ["error", 4],
+        "import/no-cycle": "off"
     }
 }
