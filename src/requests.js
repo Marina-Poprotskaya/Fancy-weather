@@ -36,17 +36,14 @@ async function getCurrentUserLocation() {
     const urlLocation = `https://ipinfo.io/json?token=${geolocationKey}`;
     const response = await fetch(urlLocation);
     const data = await response.json();
-    const arrLoc = data.loc.split(',');
-    const latitude = arrLoc[0];
-    const longitude = arrLoc[1];
-    return [latitude, longitude];
+    return data.loc.split(',');
 }
 
 async function getCurrentUserCity() {
     const urlLocation = `https://ipinfo.io/json?token=${geolocationKey}`;
     const response = await fetch(urlLocation);
-    const data = await response.json();
-    return [data.city, data.country];
+    const { city, country } = await response.json();
+    return [city, country];
 }
 
 async function getFullNameOfCountry(latitude, longitude) {

@@ -1,21 +1,20 @@
-import { chooseRequestLanguage, chooseScaleOfTemperature } from './helpers';
-
+import { chooseRequestLanguage, chooseScaleOfTemperature, getTextFromElement } from './helpers';
 
 export default function listenForecast() {
-    const mainDescription = document.querySelector('.description').textContent;
-    const averageTemp = document.querySelector('.average-temp').textContent;
-    const wind = document.querySelector('.wind').textContent;
-    const humidity = document.querySelector('.humidity').textContent;
-    const cityName = document.querySelector('.city-name').textContent;
-    const countryName = document.querySelector('.full-country-name').textContent;
-    const temperature = document.querySelector('.temperature').textContent;
-    const date = document.querySelector('.current-date').textContent;
-    const secondDay = document.querySelector('.second-day').textContent;
-    const thirdDay = document.querySelector('.third-day').textContent;
-    const fourthDay = document.querySelector('.four-day').textContent;
-    const secondDayTemperature = document.querySelector('.next1').textContent;
-    const thirdDayTemperature = document.querySelector('.next2').textContent;
-    const fourthDayTemperature = document.querySelector('.next3').textContent;
+    const mainDescription = getTextFromElement('.description');
+    const averageTemp = getTextFromElement('.average-temp');
+    const wind = getTextFromElement('.wind');
+    const humidity = getTextFromElement('.humidity');
+    const cityName = getTextFromElement('.city-name');
+    const countryName = getTextFromElement('.full-country-name');
+    const temperature = getTextFromElement('.temperature');
+    const date = getTextFromElement('.current-date');
+    const secondDay = getTextFromElement('.second-day');
+    const thirdDay = getTextFromElement('.third-day');
+    const fourthDay = getTextFromElement('.four-day');
+    const secondDayTemperature = getTextFromElement('.next1');
+    const thirdDayTemperature = getTextFromElement('.next2');
+    const fourthDayTemperature = getTextFromElement('.next3');
     const lang = chooseRequestLanguage();
     const scale = chooseScaleOfTemperature();
     let chosenScale;
@@ -28,7 +27,6 @@ export default function listenForecast() {
         chosenScale = 'Фаренгейта';
         chosenScaleEn = 'F';
     }
-
     const synth = window.speechSynthesis;
     const speech = new SpeechSynthesisUtterance();
     speech.rate = 1.5;

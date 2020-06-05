@@ -11,7 +11,7 @@ import {
     clockStart,
     renderWeatherAndLocation,
     renderNameOfCountry,
-    setBackgroundImage,
+    renderBackgroundImage,
     fillInSearchInputAndButton,
     renderNameOfCity,
     getCurrentTimeSearchingCity,
@@ -57,6 +57,7 @@ function clearClassFromLangButtons() {
 }
 
 const arrOfInputCity = [];
+
 async function fillFieldsWithAnotherLang() {
     stringField.innerHTML = '';
     fillInSearchInputAndButton();
@@ -69,18 +70,8 @@ async function fillFieldsWithAnotherLang() {
         renderNameOfCity(searchCity);
         renderDateToHTML(currentOffSetTime);
         setTimeout(() => { fillRunningString(); }, 2000);
-    } else if (searchField.value === '' && arrOfInputCity.length !== 0) {
-        const searchCity = arrOfInputCity[arrOfInputCity.length - 1];
-        const data = await getDataAboutWeather(searchCity);
-        renderWeatherAndLocation(data);
-        renderNameOfCity(searchCity);
-        const latitude = data.lat;
-        const longitude = data.lon;
-        renderNameOfCountry(latitude, longitude);
-        renderDateToHTML(currentOffSetTime);
-        setTimeout(() => { fillRunningString(); }, 2000);
     } else {
-        const searchCity = searchField.value;
+        const searchCity = searchField.value || arrOfInputCity[arrOfInputCity.length - 1];
         const data = await getDataAboutWeather(searchCity);
         if (data.length !== 0) {
             renderWeatherAndLocation(data);
@@ -93,6 +84,7 @@ async function fillFieldsWithAnotherLang() {
         }
     }
 }
+
 
 function chooseLanguage() {
     langToggle.addEventListener('click', (event) => {
@@ -139,13 +131,13 @@ imageToggler.addEventListener('click', async () => {
     }, 2000);
     if (searchField.value === '') {
         const [latitude, longitude] = await getCurrentUserLocation();
-        setBackgroundImage(latitude, longitude);
+        renderBackgroundImage(latitude, longitude);
     } else {
         const searchCity = searchField.value;
         const data = await getDataAboutWeather(searchCity);
         const latitude = data.lat;
         const longitude = data.lon;
-        setBackgroundImage(latitude, longitude);
+        renderBackgroundImage(latitude, longitude);
     }
 });
 
@@ -168,7 +160,7 @@ const doRequest = async (e) => {
             showMap(longitude, latitude);
             renderNameOfCountry(latitude, longitude);
             renderNameOfCity(searchCity);
-            setBackgroundImage(latitude, longitude);
+            renderBackgroundImage(latitude, longitude);
             fillInSearchInputAndButton();
             getCurrentTimeSearchingCity(latitude, longitude);
             currentOffSetTime = await getCurrentOffSetTime(latitude, longitude);
@@ -193,7 +185,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     showMap(longitude, latitude);
     renderNameOfCountry(latitude, longitude);
     renderNameOfCity(searchCity[0]);
-    setBackgroundImage(latitude, longitude);
+    renderBackgroundImage(latitude, longitude);
     fillInSearchInputAndButton();
     currentOffSetTime = await getCurrentOffSetTime(latitude, longitude);
     clockStart(currentOffSetTime);

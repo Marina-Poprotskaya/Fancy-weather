@@ -188,7 +188,8 @@ async function renderNameOfCity(searchCity) {
 
 
 const spinner = document.querySelector('.spinner');
-async function setBackgroundImage(latitude, longitude) {
+
+async function renderBackgroundImage(latitude, longitude) {
     const backgroundImage = await getBackgroundImage(latitude, longitude);
     const img = document.createElement('img');
     const backgroundImageDefault = 'https://images.unsplash.com/photo-1506899686410-4670690fccef?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEwMzQzOX0';
@@ -205,60 +206,64 @@ async function setBackgroundImage(latitude, longitude) {
     };
 }
 
-
 function seasonForSearching() {
     const date = new Date();
     const month = date.getMonth();
-    let season;
+    let season = 'winter';
     if (month > 1 && month < 5) {
         season = 'spring';
     } else if (month > 4 && month < 8) {
         season = 'summer';
     } else if (month > 7 && month < 11) {
         season = 'autumn';
-    } else season = 'winter';
+    }
     return season;
 }
 
 function timeOfDayForSearching() {
     const date = new Date();
     const hours = date.getHours();
-    let timeOfDay;
+    let timeOfDay = 'night';
     if (hours >= 5 && hours < 12) {
         timeOfDay = 'morning';
     } else if (hours >= 12 && hours < 18) {
         timeOfDay = 'day';
     } else if (hours >= 18 && hours < 22) {
         timeOfDay = 'evening';
-    } else timeOfDay = 'night';
+    }
     return timeOfDay;
 }
 
 function defineCurrentLanguage(searchCity) {
-    let fromWhichTranslate;
+    let fromWhichTranslate = 'be';
     if (searchCity.match(regexpRus)) {
         fromWhichTranslate = 'ru';
     } else if (searchCity.match(regexpEng)) {
         fromWhichTranslate = 'en';
-    } else fromWhichTranslate = 'be';
+    }
     return fromWhichTranslate;
+}
+
+function getTextFromElement(className) {
+    const element = document.querySelector(className).textContent;
+    return element;
 }
 
 
 function fillRunningString() {
-    const mainDescription = document.querySelector('.description').textContent.toLowerCase();
-    const averageTemp = document.querySelector('.average-temp').textContent.toLowerCase();
-    const wind = document.querySelector('.wind').textContent.toLowerCase();
-    const humidity = document.querySelector('.humidity').textContent.toLowerCase();
-    const cityName = document.querySelector('.city-name').textContent;
-    const countryName = document.querySelector('.full-country-name').textContent;
-    const temperature = document.querySelector('.temperature').textContent;
-    const secondDay = document.querySelector('.second-day').textContent.toLowerCase();
-    const thirdDay = document.querySelector('.third-day').textContent.toLowerCase();
-    const fourthDay = document.querySelector('.four-day').textContent.toLowerCase();
-    const secondDayTemperature = document.querySelector('.next1').textContent;
-    const thirdDayTemperature = document.querySelector('.next2').textContent;
-    const fourthDayTemperature = document.querySelector('.next3').textContent;
+    const mainDescription = getTextFromElement('.description').toLowerCase();
+    const averageTemp = getTextFromElement('.average-temp').toLowerCase();
+    const wind = getTextFromElement('.wind').toLowerCase();
+    const humidity = getTextFromElement('.humidity').toLowerCase();
+    const cityName = getTextFromElement('.city-name');
+    const countryName = getTextFromElement('.full-country-name');
+    const temperature = getTextFromElement('.temperature');
+    const secondDay = getTextFromElement('.second-day').toLowerCase();
+    const thirdDay = getTextFromElement('.third-day').toLowerCase();
+    const fourthDay = getTextFromElement('.four-day').toLowerCase();
+    const secondDayTemperature = getTextFromElement('.next1');
+    const thirdDayTemperature = getTextFromElement('.next2');
+    const fourthDayTemperature = getTextFromElement('.next3');
     const stringField = document.getElementById('string');
     const lang = chooseRequestLanguage();
     const scale = chooseScaleOfTemperature();
@@ -290,7 +295,7 @@ export {
     renderWeatherAndLocation,
     renderNameOfCountry,
     chooseScaleOfTemperature,
-    setBackgroundImage,
+    renderBackgroundImage,
     seasonForSearching,
     timeOfDayForSearching,
     renderTranslation,
@@ -302,4 +307,5 @@ export {
     renderDateToHTML,
     addClassToScaleAfterLoading,
     fillRunningString,
+    getTextFromElement,
 };
