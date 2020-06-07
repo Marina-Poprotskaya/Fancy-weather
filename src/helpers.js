@@ -160,7 +160,7 @@ function addClassToScaleAfterLoading() {
 }
 
 
-async function renderWeatherAndLocation(data) {
+function renderWeatherAndLocation(data) {
     const fieldForWeather = document.querySelector('.forecast');
     const fieldForLocation = document.querySelector('.location-wrapper');
     fieldForWeather.innerHTML = '';
@@ -245,8 +245,7 @@ function defineCurrentLanguage(searchCity) {
 }
 
 function getTextFromElement(className) {
-    const element = document.querySelector(className).textContent;
-    return element;
+    return document.querySelector(className).textContent;
 }
 
 

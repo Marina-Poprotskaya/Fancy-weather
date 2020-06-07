@@ -66,10 +66,10 @@ async function fillFieldsWithAnotherLang() {
         const data = await getDataAboutWeather(searchCity);
         const [latitude, longitude] = await getCurrentUserLocation();
         renderWeatherAndLocation(data);
-        renderNameOfCountry(latitude, longitude);
-        renderNameOfCity(searchCity);
-        renderDateToHTML(currentOffSetTime);
-        setTimeout(() => { fillRunningString(); }, 2000);
+        await renderNameOfCountry(latitude, longitude);
+        await renderNameOfCity(searchCity);
+        await renderDateToHTML(currentOffSetTime);
+        fillRunningString();
     } else {
         const searchCity = searchField.value || arrOfInputCity[arrOfInputCity.length - 1];
         const data = await getDataAboutWeather(searchCity);
@@ -77,10 +77,10 @@ async function fillFieldsWithAnotherLang() {
             renderWeatherAndLocation(data);
             const latitude = data.lat;
             const longitude = data.lon;
-            renderNameOfCountry(latitude, longitude);
-            renderNameOfCity(searchCity);
-            renderDateToHTML(currentOffSetTime);
-            setTimeout(() => { fillRunningString(); }, 2000);
+            await renderNameOfCountry(latitude, longitude);
+            await renderNameOfCity(searchCity);
+            await renderDateToHTML(currentOffSetTime);
+            fillRunningString();
         }
     }
 }
@@ -158,15 +158,15 @@ const doRequest = async (e) => {
             const latitude = data.lat;
             const longitude = data.lon;
             showMap(longitude, latitude);
-            renderNameOfCountry(latitude, longitude);
-            renderNameOfCity(searchCity);
+            await renderNameOfCountry(latitude, longitude);
+            await renderNameOfCity(searchCity);
             renderBackgroundImage(latitude, longitude);
             fillInSearchInputAndButton();
             getCurrentTimeSearchingCity(latitude, longitude);
             currentOffSetTime = await getCurrentOffSetTime(latitude, longitude);
             clockStart(currentOffSetTime);
-            renderDateToHTML(currentOffSetTime);
-            setTimeout(() => { fillRunningString(); }, 2000);
+            await renderDateToHTML(currentOffSetTime);
+            fillRunningString();
         }
     }
 };
@@ -183,14 +183,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     searchField.value = '';
     const [latitude, longitude] = await getCurrentUserLocation();
     showMap(longitude, latitude);
-    renderNameOfCountry(latitude, longitude);
-    renderNameOfCity(searchCity[0]);
+    await renderNameOfCountry(latitude, longitude);
+    await renderNameOfCity(searchCity[0]);
     renderBackgroundImage(latitude, longitude);
     fillInSearchInputAndButton();
     currentOffSetTime = await getCurrentOffSetTime(latitude, longitude);
     clockStart(currentOffSetTime);
-    renderDateToHTML(currentOffSetTime);
-    setTimeout(() => { fillRunningString(); }, 2000);
+    await renderDateToHTML(currentOffSetTime);
+    fillRunningString();
 });
 
 const voiceTrigger = document.querySelector('.microphone');
