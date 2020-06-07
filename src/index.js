@@ -62,12 +62,12 @@ async function fillFieldsWithAnotherLang() {
     stringField.innerHTML = '';
     fillInSearchInputAndButton();
     if (searchField.value === '' && arrOfInputCity.length === 0) {
-        const [searchCity] = await getCurrentUserCity();
+        const searchCity = await getCurrentUserCity();
         const data = await getDataAboutWeather(searchCity);
         const [latitude, longitude] = await getCurrentUserLocation();
         renderWeatherAndLocation(data);
         await renderNameOfCountry(latitude, longitude);
-        await renderNameOfCity(searchCity);
+        await renderNameOfCity(searchCity[0]);
         await renderDateToHTML(currentOffSetTime);
         fillRunningString();
     } else {
@@ -113,9 +113,9 @@ chooseLanguage();
 function chooseTemperatureScale() {
     temperatureWrapper.addEventListener('click', (event) => {
         if (!event.target.classList.contains('temp-chosen')) {
-            fillFieldsWithAnotherLang();
             temperatureScales.forEach((el) => el.classList.remove('temp-chosen'));
             event.target.classList.add('temp-chosen');
+            fillFieldsWithAnotherLang();
         }
     });
 }
