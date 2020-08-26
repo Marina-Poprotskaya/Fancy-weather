@@ -116,25 +116,22 @@ async function getTranslationForBackgroundImageCity(cityRus) {
 }
 
 async function getBackgroundImage(latitude, longitude) {
-    try {
-        const cityRus = await getCityForSearchBackgroundImage(latitude, longitude);
-        const city = await getTranslationForBackgroundImageCity(cityRus);
-        console.log('city: ', city);
+  try {
+        //const cityRus = await getCityForSearchBackgroundImage(latitude, longitude);
+        // const city = await getTranslationForBackgroundImageCity(cityRus);
         const season = seasonForSearching();
-        console.log('season: ', season);
         const dayTime = timeOfDayForSearching();
-        console.log('dayTime: ', dayTime);
-        const urlImage = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${imageKey}&tags=${season},${city}&tag_mode=all&extras=url_h&format=json&nojsoncallback=1`;
+        const urlImage = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${imageKey}&tags=${season},nature&tag_mode=all&extras=url_h&format=json&nojsoncallback=1`;
         const response = await fetch(urlImage);
         const data = await response.json();
         const arrayOfPhoto = data.photos.photo.sort(() => Math.random() - 0.5);
         const currentPhoto = arrayOfPhoto[0].url_h;
         const errorMessage = data.error;
         if (errorMessage) {
-            throw new Error(errorMessage);
+          throw new Error(errorMessage);
         }
         return currentPhoto;
-    } catch (errorMessage) {
+      } catch (errorMessage) {
         const currentPhoto = 'https://images.unsplash.com/photo-1506899686410-4670690fccef?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEwMzQzOX0';
         return currentPhoto;
     }
